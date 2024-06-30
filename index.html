@@ -3,75 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customizable Spinner with Swipe</title>
     <style>
-        .spinner-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .spinner {
+        .circle {
             width: 200px;
             height: 200px;
+            background: conic-gradient(black 0% 25%, white 25% 50%, black 50% 75%, white 75% 100%);
             border-radius: 50%;
-            position: relative;
-            transition: transform 2s linear;
-            transform: rotate(0deg); /* Initialize the rotation angle */
         }
-
-        .option {
-            width: 50%;
-            height: 50%;
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 14px;
-            text-align: center;
-            clip-path: polygon(50% 50%, 100% 0, 100% 100%);
-        }
-
-        .option1 { background-color: red; transform: rotate(0deg); transform-origin: bottom right; }
-        .option2 { background-color: green; transform: rotate(90deg); transform-origin: bottom left; }
-        .option3 { background-color: blue; transform: rotate(180deg); transform-origin: top left; }
-        .option4 { background-color: yellow; transform: rotate(270deg); transform-origin: top right; }
     </style>
+    <title>Circle with Black and White Sections</title>
 </head>
 <body>
-    <div class="spinner-container">
-        <div class="spinner" id="spinner">
-            <div class="option option1">Option 1</div>
-            <div class="option option2">Option 2</div>
-            <div class="option option3">Option 3</div>
-            <div class="option option4">Option 4</div>
-        </div>
-    </div>
-
-    <script>
-        let startAngle = 0;
-        let initialTouchX = 0;
-
-        function handleTouchStart(event) {
-            initialTouchX = event.touches[0].clientX;
-        }
-
-        function handleTouchMove(event) {
-            const spinner = document.getElementById('spinner');
-            const currentTouchX = event.touches[0].clientX;
-            const swipeDistance = currentTouchX - initialTouchX;
-            const rotationAngle = swipeDistance * 0.1;
-            startAngle += rotationAngle;
-            spinner.style.transform = `rotate(${startAngle}deg)`;
-            initialTouchX = currentTouchX; // Update initial touch position for continuous rotation
-        }
-
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('touchstart', handleTouchStart);
-            option.addEventListener('touchmove', handleTouchMove);
-        });
-    </script>
+    <div class="circle"></div>
 </body>
 </html>
