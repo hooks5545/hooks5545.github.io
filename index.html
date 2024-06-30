@@ -6,6 +6,7 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -67,6 +68,11 @@
             transform: translate(50%, 50%);
             color: white; /* White text for black background */
         }
+        .result {
+            font-size: 60px;
+            margin-top: 20px;
+            visibility: hidden; /* Hide initially */
+        }
     </style>
     <title>Circle with Customizable Text and Arrow</title>
 </head>
@@ -80,6 +86,7 @@
             <div class="text bottom-right" onclick="spinTo('bottom-right')">Text 4</div>
         </div>
     </div>
+    <div class="result" id="result"></div>
 
     <script>
         const positions = {
@@ -89,14 +96,29 @@
             'bottom-right': 180
         };
 
+        const textMap = {
+            'top-left': 'Text 1',
+            'top-right': 'Text 2',
+            'bottom-left': 'Text 3',
+            'bottom-right': 'Text 4'
+        };
+
         function spinTo(position) {
             const circle = document.getElementById('circle');
+            const result = document.getElementById('result');
             const randomExtraSpins = 1000; // At least 1000 degrees
             const targetAngle = positions[position];
             const randomDegrees = randomExtraSpins + targetAngle;
             const randomDuration = 4 + Math.random(); // Random time between 4 and 5 seconds
+
             circle.style.transitionDuration = `${randomDuration}s`;
             circle.style.transform = `rotate(${randomDegrees}deg)`;
+
+            // Show the result after the spin ends
+            setTimeout(() => {
+                result.textContent = textMap[position];
+                result.style.visibility = 'visible';
+            }, randomDuration * 1000);
         }
     </script>
 </body>
