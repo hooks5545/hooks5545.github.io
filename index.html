@@ -23,6 +23,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            transition: transform 5s ease-out;
         }
         .text {
             position: absolute;
@@ -32,35 +33,43 @@
             top: 25%;
             left: 25%;
             transform: translate(-50%, -50%);
-            color: black; /* White text for black background */
+            color: white; /* White text for black background */
         }
         .top-right {
             top: 25%;
             right: 25%;
             transform: translate(50%, -50%);
-            color: white; /* Black text for white background */
+            color: black; /* Black text for white background */
         }
         .bottom-left {
             bottom: 25%;
             left: 25%;
             transform: translate(-50%, 50%);
-            color: white; /* Black text for white background */
+            color: black; /* Black text for white background */
         }
         .bottom-right {
             bottom: 25%;
             right: 25%;
             transform: translate(50%, 50%);
-            color: black; /* White text for black background */
+            color: white; /* White text for black background */
         }
     </style>
     <title>Circle with Customizable Text</title>
 </head>
 <body>
-    <div class="circle">
-        <div class="text top-left">White (3X)</div>
-        <div class="text top-right">Balck (3X)</div>
-        <div class="text bottom-left">Black (3X)</div>
-        <div class="text bottom-right">Whitw (3X)</div>
+    <div class="circle" id="circle">
+        <div class="text top-left" onclick="spin()">Text 1</div>
+        <div class="text top-right" onclick="spin()">Text 2</div>
+        <div class="text bottom-left" onclick="spin()">Text 3</div>
+        <div class="text bottom-right" onclick="spin()">Text 4</div>
     </div>
+
+    <script>
+        function spin() {
+            const circle = document.getElementById('circle');
+            const randomDegrees = Math.floor(Math.random() * 360);
+            circle.style.transform = `rotate(${randomDegrees}deg)`;
+        }
+    </script>
 </body>
 </html>
