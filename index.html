@@ -3,81 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Wheel Spinner</title>
+    <title>Customizable Spinner</title>
     <style>
-        body {
+        .spinner-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
         }
-        #spinner {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            border: 10px solid #000;
+
+        .spinner {
+            width: 200px;
+            height: 200px;
+            border: 10px solid #f3f3f3;
+            border-top: 10px solid #3498db;
             border-radius: 50%;
-            overflow: hidden;
-            transform: rotate(0deg);
-            transition: transform 3s ease-out;
+            animation: spin 2s linear infinite;
+            position: relative;
         }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .option {
-            position: absolute;
             width: 50%;
             height: 50%;
-            transform-origin: 100% 100%;
-        }
-        .option:nth-child(1) {
-            background-color: #000;
-        }
-        .option:nth-child(2) {
-            transform: rotate(90deg);
-            background-color: #fff;
-        }
-        .option:nth-child(3) {
-            transform: rotate(180deg);
-            background-color: #000;
-        }
-        .option:nth-child(4) {
-            transform: rotate(270deg);
-            background-color: #fff;
-        }
-        #arrow {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 30px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
         }
+
+        .option1 { background-color: red; top: 0; left: 0; }
+        .option2 { background-color: green; top: 0; right: 0; }
+        .option3 { background-color: blue; bottom: 0; left: 0; }
+        .option4 { background-color: yellow; bottom: 0; right: 0; }
     </style>
 </head>
 <body>
-    <div id="spinner">
-        <div class="option"></div>
-        <div class="option"></div>
-        <div class="option"></div>
-        <div class="option"></div>
-        <div id="arrow"></div>
+    <div class="spinner-container">
+        <div class="spinner">
+            <div class="option option1">Option 1: Sample Text</div>
+            <div class="option option2">Option 2: Sample Text</div>
+            <div class="option option3">Option 3: Sample Text</div>
+            <div class="option option4">Option 4: Sample Text</div>
+        </div>
     </div>
-
-    <script>
-        function spinTo(optionIndex) {
-            const spinner = document.getElementById('spinner');
-            const totalOptions = 4;
-            const degreePerOption = 360 / totalOptions;
-            const randomFullRotations = 3 * 360; // Ensures it spins at least 3 times
-            const targetRotation = randomFullRotations + (totalOptions - optionIndex) * degreePerOption;
-            spinner.style.transform = `rotate(${targetRotation}deg)`;
-        }
-
-        // Simulate a swipe to a particular option
-        const chosenOptionIndex = 2; // Index from 0 to 3, for example 2 is the third option
-        spinTo(chosenOptionIndex);
-    </script>
 </body>
 </html>
