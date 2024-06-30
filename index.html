@@ -25,7 +25,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            transition: transform 5s ease-out; /* 5-second transition */
+            transition: transform 5s ease-out; /* Default transition time */
         }
         .arrow {
             position: absolute;
@@ -94,6 +94,8 @@
             const randomExtraSpins = 1000; // At least 1000 degrees
             const targetAngle = positions[position];
             const randomDegrees = randomExtraSpins + targetAngle;
+            const randomDuration = 4 + Math.random(); // Random time between 4 and 5 seconds
+            circle.style.transitionDuration = `${randomDuration}s`;
             circle.style.transform = `rotate(${randomDegrees}deg)`;
         }
     </script>
