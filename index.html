@@ -41,6 +41,7 @@
         .text {
             position: absolute;
             font-weight: bold;
+            cursor: pointer;
         }
         .top-left {
             top: 25%;
@@ -73,17 +74,26 @@
     <div class="circle-container">
         <div class="arrow"></div>
         <div class="circle" id="circle">
-            <div class="text top-left" onclick="spin()">Text 1</div>
-            <div class="text top-right" onclick="spin()">Text 2</div>
-            <div class="text bottom-left" onclick="spin()">Text 3</div>
-            <div class="text bottom-right" onclick="spin()">Text 4</div>
+            <div class="text top-left" onclick="spinTo('top-left')">Text 1</div>
+            <div class="text top-right" onclick="spinTo('top-right')">Text 2</div>
+            <div class="text bottom-left" onclick="spinTo('bottom-left')">Text 3</div>
+            <div class="text bottom-right" onclick="spinTo('bottom-right')">Text 4</div>
         </div>
     </div>
 
     <script>
-        function spin() {
+        const positions = {
+            'top-left': 0,
+            'top-right': 90,
+            'bottom-left': 270,
+            'bottom-right': 180
+        };
+
+        function spinTo(position) {
             const circle = document.getElementById('circle');
-            const randomDegrees = 1000 + Math.floor(Math.random() * 360);
+            const randomExtraSpins = 1000; // At least 1000 degrees
+            const targetAngle = positions[position];
+            const randomDegrees = randomExtraSpins + targetAngle;
             circle.style.transform = `rotate(${randomDegrees}deg)`;
         }
     </script>
