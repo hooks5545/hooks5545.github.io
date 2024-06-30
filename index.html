@@ -56,7 +56,7 @@
         function handleSwipe(event) {
             const spinner = document.getElementById('spinner');
             const swipeDistance = event.changedTouches[0].clientX - event.touches[0].clientX;
-            const rotationAngle = swipeDistance * 0.1;
+            const rotationAngle = swipeDistance * 1;
             startAngle += rotationAngle;
             spinner.style.transform = `rotate(${startAngle}deg)`;
         }
