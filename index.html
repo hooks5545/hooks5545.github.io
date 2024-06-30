@@ -23,7 +23,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            transition: transform 0.5s ease-out; /* Faster transition */
+            transition: transform 5s ease-out; /* 5-second transition */
         }
         .text {
             position: absolute;
@@ -67,7 +67,7 @@
     <script>
         function spin() {
             const circle = document.getElementById('circle');
-            const randomDegrees = Math.floor(Math.random() * 360);
+            const randomDegrees = 1000 + Math.floor(Math.random() * 360);
             circle.style.transform = `rotate(${randomDegrees}deg)`;
         }
     </script>
