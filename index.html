@@ -13,6 +13,18 @@
             margin: 0;
             background-color: white;
         }
+        .title-box {
+            width: 400px;
+            height: 50px;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
         .box {
             width: 300px;
             height: 100px;
@@ -60,9 +72,10 @@
             animation: randomize 3s steps(16, end) forwards;
         }
     </style>
-    <title>Random Character Generator</title>
+    <title>Roblox Giftcard Generator</title>
 </head>
 <body>
+    <div class="title-box">Roblox Giftcard Generator</div>
     <div class="box" id="randomBox" data-text="Click the Button">Click the Button</div>
     <button class="button" onclick="generateRandomString()">Generate Random String</button>
 
