@@ -11,118 +11,47 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0; /* Optional: background color for better visibility */
+            background-color: white;
         }
-        .circle-container {
-            position: relative;
-        }
-        .circle {
-            width: 200px;
-            height: 200px;
-            background: conic-gradient(black 0% 25%, white 25% 50%, black 50% 75%, white 75% 100%);
-            border-radius: 50%;
-            border: 5px solid black; /* Black outline */
+        .box {
+            width: 300px;
+            height: 100px;
+            background-color: black;
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            transition: transform 5s ease-out; /* Default transition time */
+            font-size: 24px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
-        .arrow {
-            position: absolute;
-            left: -40px; /* 20px to the left of the circle plus 20px arrow width */
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-right: 20px solid black; /* Black arrow */
-        }
-        .text {
-            position: absolute;
-            font-weight: bold;
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
-        }
-        .top-left {
-            top: 35%;
-            font-size: 15px;
-            left: 30%;
-            transform: translate(-50%, -50%);
-            color: black; /* White text for black background */
-        }
-        .top-right {
-            top: 35%;
-            right: 30%;
-            font-size: 15px;
-            transform: translate(50%, -50%);
-            color: white; /* Black text for white background */
-        }
-        .bottom-left {
-            bottom: 35%;
-            left: 30%;
-            font-size: 15px;
-            transform: translate(-50%, 50%);
-            color: white; /* Black text for white background */
-        }
-        .bottom-right {
-            bottom: 35%;
-            font-size: 15px;
-            right: 30%;
-            transform: translate(50%, 50%);
-            color: black; /* White text for black background */
-        }
-        .result {
-            font-size: 70px;
-            margin-top: 25px;
-            visibility: hidden; /* Hide initially */
+            border: none;
+            border-radius: 5px;
+            background-color: black;
+            color: white;
         }
     </style>
-    <title>Circle with Customizable Text and Arrow</title>
+    <title>Random Character Generator</title>
 </head>
 <body>
-    <div class="circle-container">
-        <div class="arrow"></div>
-        <div class="circle" id="circle">
-            <div class="text top-left" onclick="spinTo('top-left')">White (3X)</div>
-            <div class="text top-right" onclick="spinTo('top-right')">Black (3X)</div>
-            <div class="text bottom-left" onclick="spinTo('bottom-left')">Black (3X)</div>
-            <div class="text bottom-right" onclick="spinTo('bottom-right')">White (3X)</div>
-        </div>
-    </div>
-    <div class="result" id="result"></div>
+    <div class="box" id="randomBox">Click the Button</div>
+    <button class="button" onclick="generateRandomString()">Generate Random String</button>
 
     <script>
-        const positions = {
-            'top-left': 0,
-            'top-right': 90,
-            'bottom-left': 270,
-            'bottom-right': 180
-        };
-
-        const textMap = {
-            'top-left': 'White (3X)',
-            'top-right': 'Black (3X)',
-            'bottom-left': 'Black (3X)',
-            'bottom-right': 'White (3X)'
-        };
-
-        function spinTo(position) {
-            const circle = document.getElementById('circle');
-            const result = document.getElementById('result');
-            const randomExtraSpins = 1000; // At least 1000 degrees
-            const targetAngle = positions[position];
-            const randomDegrees = randomExtraSpins + targetAngle;
-            const randomDuration = 4 + Math.random(); // Random time between 4 and 5 seconds
-
-            circle.style.transitionDuration = `${randomDuration}s`;
-            circle.style.transform = `rotate(${randomDegrees}deg)`;
-
-            // Show the result after the spin ends
-            setTimeout(() => {
-                result.textContent = textMap[position];
-                result.style.visibility = 'visible';
-            }, randomDuration * 1000);
+        function generateRandomString() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < 16; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+                if ((i + 1) % 4 === 0 && i < 15) {
+                    result += '-';
+                }
+            }
+            document.getElementById('randomBox').textContent = result;
         }
     </script>
 </body>
