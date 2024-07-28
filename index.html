@@ -36,11 +36,20 @@
             color: white;
         }
         @keyframes randomize {
-            0%, 20%, 40%, 60%, 80% {
+            0%, 20% {
                 content: attr(data-random1);
             }
-            10%, 30%, 50%, 70%, 90% {
+            10%, 30% {
                 content: attr(data-random2);
+            }
+            5%, 25% {
+                content: attr(data-random3);
+            }
+            15%, 35% {
+                content: attr(data-random4);
+            }
+            40% {
+                content: attr(data-random5);
             }
             100% {
                 content: attr(data-text);
@@ -48,7 +57,7 @@
         }
         .animating::after {
             content: attr(data-text);
-            animation: randomize 1.5s steps(16, end) forwards;
+            animation: randomize 3s steps(16, end) forwards;
         }
     </style>
     <title>Random Character Generator</title>
@@ -74,12 +83,34 @@
             }
 
             const random1 = generateRandomSegment();
-            const random2 = generateRandomSegment();
-            const finalResult = generateRandomSegment();
+            let random2, random3, random4, random5, finalResult;
+
+            do {
+                random2 = generateRandomSegment();
+            } while (random2 === random1);
+
+            do {
+                random3 = generateRandomSegment();
+            } while (random3 === random1 || random3 === random2);
+
+            do {
+                random4 = generateRandomSegment();
+            } while (random4 === random1 || random4 === random2 || random4 === random3);
+
+            do {
+                random5 = generateRandomSegment();
+            } while (random5 === random1 || random5 === random2 || random5 === random3 || random5 === random4);
+
+            do {
+                finalResult = generateRandomSegment();
+            } while (finalResult === random1 || finalResult === random2 || finalResult === random3 || finalResult === random4 || finalResult === random5);
 
             // Set the generated text to the data attributes
             randomBox.setAttribute('data-random1', random1);
             randomBox.setAttribute('data-random2', random2);
+            randomBox.setAttribute('data-random3', random3);
+            randomBox.setAttribute('data-random4', random4);
+            randomBox.setAttribute('data-random5', random5);
             randomBox.setAttribute('data-text', finalResult);
 
             // Clear the text content
@@ -92,7 +123,7 @@
             setTimeout(() => {
                 randomBox.textContent = finalResult;
                 randomBox.classList.remove('animating');
-            }, 1500); // Duration should match the animation duration
+            }, 3000); // Duration should match the animation duration
         }
     </script>
 </body>
