@@ -24,6 +24,7 @@
             font-size: 24px;
             border-radius: 10px;
             margin-bottom: 20px;
+            overflow: hidden;
         }
         .button {
             padding: 10px 20px;
@@ -34,43 +35,45 @@
             background-color: black;
             color: white;
         }
-        @keyframes generateAnimation {
-            0% { content: "Generating..."; }
-            25% { content: "Generating.."; }
-            50% { content: "Generating..."; }
-            75% { content: "Generating.."; }
-            100% { content: "Generating..."; }
+        @keyframes shuffle {
+            0% { content: '..............'; }
+            25% { content: '############'; }
+            50% { content: '%%%%%%%%%%%%'; }
+            75% { content: '@@@@@@@@@@@@'; }
+            100% { content: '&&&&&&&&&&&&'; }
         }
-        .box::after {
+        .animating::after {
             content: attr(data-text);
-            animation: generateAnimation 1s infinite;
+            animation: shuffle 1s steps(5, end) infinite;
         }
     </style>
     <title>Random Character Generator</title>
 </head>
 <body>
-    <div class="box" id="randomBox" data-text="Click the Button"></div>
+    <div class="box" id="randomBox" data-text="Click the Button">Click the Button</div>
     <button class="button" onclick="generateRandomString()">Generate Random String</button>
 
     <script>
         function generateRandomString() {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            const randomBox = document.getElementById('randomBox');
             let result = '';
-            randomBox.dataset.text = ''; // Clear the text
-            let animation = setInterval(() => {
-                randomBox.dataset.text = 'Generating...';
-            }, 100);
+            const randomBox = document.getElementById('randomBox');
+
+            // Start the animation
+            randomBox.classList.add('animating');
+            randomBox.dataset.text = '..............';
+
+            // Generate the random string after 1 second
             setTimeout(() => {
-                clearInterval(animation);
                 for (let i = 0; i < 16; i++) {
                     result += characters.charAt(Math.floor(Math.random() * characters.length));
                     if ((i + 1) % 4 === 0 && i < 15) {
                         result += '-';
                     }
                 }
-                randomBox.dataset.text = result;
-            }, 1000); // 1 second delay for animation
+                randomBox.textContent = result;
+                randomBox.classList.remove('animating');
+            }, 1000);
         }
     </script>
 </body>
