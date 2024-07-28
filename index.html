@@ -35,16 +35,17 @@
             background-color: black;
             color: white;
         }
-        @keyframes shuffle {
-            0% { content: '..............'; }
-            25% { content: '############'; }
-            50% { content: '%%%%%%%%%%%%'; }
-            75% { content: '@@@@@@@@@@@@'; }
-            100% { content: '&&&&&&&&&&&&'; }
+        @keyframes reveal {
+            0% {
+                content: '################';
+            }
+            100% {
+                content: attr(data-text);
+            }
         }
-        .animating::after {
-            content: attr(data-text);
-            animation: shuffle 1s steps(5, end) infinite;
+        .animating::before {
+            content: '################';
+            animation: reveal 1s steps(16, end) forwards;
         }
     </style>
     <title>Random Character Generator</title>
@@ -59,21 +60,25 @@
             let result = '';
             const randomBox = document.getElementById('randomBox');
 
+            // Generate the random string
+            for (let i = 0; i < 16; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+                if ((i + 1) % 4 === 0 && i < 15) {
+                    result += '-';
+                }
+            }
+
+            // Set the generated text to the data attribute
+            randomBox.setAttribute('data-text', result);
+
             // Start the animation
             randomBox.classList.add('animating');
-            randomBox.dataset.text = '..............';
 
-            // Generate the random string after 1 second
+            // Remove the animation class after it completes
             setTimeout(() => {
-                for (let i = 0; i < 16; i++) {
-                    result += characters.charAt(Math.floor(Math.random() * characters.length));
-                    if ((i + 1) % 4 === 0 && i < 15) {
-                        result += '-';
-                    }
-                }
                 randomBox.textContent = result;
                 randomBox.classList.remove('animating');
-            }, 1000);
+            }, 1000); // Duration should match the animation duration
         }
     </script>
 </body>
