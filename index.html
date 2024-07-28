@@ -82,6 +82,9 @@
             randomBox.setAttribute('data-random2', random2);
             randomBox.setAttribute('data-text', finalResult);
 
+            // Clear the text content
+            randomBox.textContent = '';
+
             // Start the animation
             randomBox.classList.add('animating');
 
