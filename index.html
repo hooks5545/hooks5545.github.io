@@ -11,7 +11,9 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: white;
+            background-image: url('robuxprice.png');
+            background-size: cover;
+            background-position: center;
         }
         .title-box {
             width: 300px; /* Less wide */
@@ -77,7 +79,7 @@
 <body>
     <div class="title-box">Roblox Giftcard Generator</div>
     <div class="box" id="randomBox" data-text="Click the Button">Click the Button</div>
-    <button class="button" onclick="generateRandomString()">Generate Roblox Code</button>
+    <button class="button" onclick="generateRandomString()">Generate Random String</button>
 
     <script>
         function generateRandomString() {
