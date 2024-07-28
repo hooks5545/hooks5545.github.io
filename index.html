@@ -35,17 +35,20 @@
             background-color: black;
             color: white;
         }
-        @keyframes reveal {
-            0% {
-                content: '################';
+        @keyframes randomize {
+            0%, 20%, 40%, 60%, 80% {
+                content: attr(data-random1);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                content: attr(data-random2);
             }
             100% {
                 content: attr(data-text);
             }
         }
-        .animating::before {
-            content: '################';
-            animation: reveal 1s steps(16, end) forwards;
+        .animating::after {
+            content: attr(data-text);
+            animation: randomize 1.5s steps(16, end) forwards;
         }
     </style>
     <title>Random Character Generator</title>
@@ -57,28 +60,36 @@
     <script>
         function generateRandomString() {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let result = '';
             const randomBox = document.getElementById('randomBox');
 
-            // Generate the random string
-            for (let i = 0; i < 16; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
-                if ((i + 1) % 4 === 0 && i < 15) {
-                    result += '-';
+            function generateRandomSegment() {
+                let segment = '';
+                for (let i = 0; i < 16; i++) {
+                    segment += characters.charAt(Math.floor(Math.random() * characters.length));
+                    if ((i + 1) % 4 === 0 && i < 15) {
+                        segment += '-';
+                    }
                 }
+                return segment;
             }
 
-            // Set the generated text to the data attribute
-            randomBox.setAttribute('data-text', result);
+            const random1 = generateRandomSegment();
+            const random2 = generateRandomSegment();
+            const finalResult = generateRandomSegment();
+
+            // Set the generated text to the data attributes
+            randomBox.setAttribute('data-random1', random1);
+            randomBox.setAttribute('data-random2', random2);
+            randomBox.setAttribute('data-text', finalResult);
 
             // Start the animation
             randomBox.classList.add('animating');
 
-            // Remove the animation class after it completes
+            // Update the text content after the animation completes
             setTimeout(() => {
-                randomBox.textContent = result;
+                randomBox.textContent = finalResult;
                 randomBox.classList.remove('animating');
-            }, 1000); // Duration should match the animation duration
+            }, 1500); // Duration should match the animation duration
         }
     </script>
 </body>
