@@ -34,24 +34,43 @@
             background-color: black;
             color: white;
         }
+        @keyframes generateAnimation {
+            0% { content: "Generating..."; }
+            25% { content: "Generating.."; }
+            50% { content: "Generating..."; }
+            75% { content: "Generating.."; }
+            100% { content: "Generating..."; }
+        }
+        .box::after {
+            content: attr(data-text);
+            animation: generateAnimation 1s infinite;
+        }
     </style>
     <title>Random Character Generator</title>
 </head>
 <body>
-    <div class="box" id="randomBox">Click the Button</div>
+    <div class="box" id="randomBox" data-text="Click the Button"></div>
     <button class="button" onclick="generateRandomString()">Generate Random String</button>
 
     <script>
         function generateRandomString() {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const randomBox = document.getElementById('randomBox');
             let result = '';
-            for (let i = 0; i < 16; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
-                if ((i + 1) % 4 === 0 && i < 15) {
-                    result += '-';
+            randomBox.dataset.text = ''; // Clear the text
+            let animation = setInterval(() => {
+                randomBox.dataset.text = 'Generating...';
+            }, 100);
+            setTimeout(() => {
+                clearInterval(animation);
+                for (let i = 0; i < 16; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                    if ((i + 1) % 4 === 0 && i < 15) {
+                        result += '-';
+                    }
                 }
-            }
-            document.getElementById('randomBox').textContent = result;
+                randomBox.dataset.text = result;
+            }, 1000); // 1 second delay for animation
         }
     </script>
 </body>
