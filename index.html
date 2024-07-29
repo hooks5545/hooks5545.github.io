@@ -10,33 +10,55 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 100;
+            margin: 0;
             background-image: url('robuxprice.png');
-            background-size: 1000px;
+            background-size: cover;
             background-position: center;
         }
         .title-box {
-            /*Name Box */
             width: 300px; /* Less wide */
             height: 70px; /* Taller */
             background-color: black;
-@@ -28,6 +29,7 @@
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            border-radius: 10px;
             margin-bottom: 20px;
         }
         .box {
-            /*GENERATOR*/
             width: 300px;
             height: 100px;
             background-color: black;
-@@ -41,6 +43,7 @@
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            border-radius: 10px;
+            margin-bottom: 20px;
             overflow: hidden;
         }
         .button {
-            /*GENERATOR BUTTON*/
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-@@ -62,9 +65,6 @@
+            border: none;
+            border-radius: 5px;
+            background-color: black;
+            color: white;
+        }
+        @keyframes randomize {
+            0%, 20% {
+                content: attr(data-random1);
+            }
+            10%, 30% {
+                content: attr(data-random2);
+            }
+            5%, 25% {
+                content: attr(data-random3);
+            }
             15%, 35% {
                 content: attr(data-random4);
             }
@@ -56,12 +78,14 @@
 </head>
 <body>
     <div class="title-box">Roblox Giftcard Generator</div>
-    <div class="box" id="randomBox" data-text="GiftCodes">Gift Code</div>
+    <div class="box" id="randomBox" data-text="GiftCodes">Click the Button</div>
     <button class="button" onclick="generateRandomString()">Generate Roblox Code</button>
+
     <script>
         function generateRandomString() {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             const randomBox = document.getElementById('randomBox');
+
             function generateRandomSegment() {
                 let segment = '';
                 for (let i = 0; i < 16; i++) {
@@ -72,23 +96,30 @@
                 }
                 return segment;
             }
+
             const random1 = generateRandomSegment();
             let random2, random3, random4, random5, finalResult;
+
             do {
                 random2 = generateRandomSegment();
             } while (random2 === random1);
+
             do {
                 random3 = generateRandomSegment();
             } while (random3 === random1 || random3 === random2);
+
             do {
                 random4 = generateRandomSegment();
             } while (random4 === random1 || random4 === random2 || random4 === random3);
+
             do {
                 random5 = generateRandomSegment();
             } while (random5 === random1 || random5 === random2 || random5 === random3 || random5 === random4);
+
             do {
                 finalResult = generateRandomSegment();
             } while (finalResult === random1 || finalResult === random2 || finalResult === random3 || finalResult === random4 || finalResult === random5);
+
             // Set the generated text to the data attributes
             randomBox.setAttribute('data-random1', random1);
             randomBox.setAttribute('data-random2', random2);
@@ -96,10 +127,13 @@
             randomBox.setAttribute('data-random4', random4);
             randomBox.setAttribute('data-random5', random5);
             randomBox.setAttribute('data-text', finalResult);
+
             // Clear the text content
             randomBox.textContent = '';
+
             // Start the animation
             randomBox.classList.add('animating');
+
             // Update the text content after the animation completes
             setTimeout(() => {
                 randomBox.textContent = finalResult;
