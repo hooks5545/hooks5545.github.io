@@ -3,143 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Online Store</title>
     <style>
         body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: white;
-            background-size: cover;
-            background-position: center;
+            margin-top: 50px;
         }
-        .title-box {
-            width: 300px; /* Less wide */
-            height: 70px; /* Taller */
-            background-color: black;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .item {
+            margin: 20px;
         }
-        .box {
-            width: 300px;
-            height: 100px;
-            background-color: black;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
+        .item img {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #fff;
         }
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: black;
-            color: white;
+        .item a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 20px;
         }
-        @keyframes randomize {
-            0%, 20% {
-                content: attr(data-random1);
-            }
-            10%, 30% {
-                content: attr(data-random2);
-            }
-            5%, 25% {
-                content: attr(data-random3);
-            }
-            15%, 35% {
-                content: attr(data-random4);
-            }
-            40% {
-                content: attr(data-random5);
-            }
-            100% {
-                content: attr(data-text);
-            }
-        }
-        .animating::after {
-            content: attr(data-text);
-            animation: randomize 3s steps(16, end) forwards;
+        .item a:hover {
+            color: #aaa;
         }
     </style>
-    <title>Roblox Giftcard Generator</title>
 </head>
 <body>
-    <div class="title-box">Roblox Giftcard Generator</div>
-    <div class="box" id="randomBox" data-text="GiftCodes">Click the Button</div>
-    <button class="button" onclick="generateRandomString()">Generate Roblox Code</button>
-
-    <script>
-        function generateRandomString() {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            const randomBox = document.getElementById('randomBox');
-
-            function generateRandomSegment() {
-                let segment = '';
-                for (let i = 0; i < 16; i++) {
-                    segment += characters.charAt(Math.floor(Math.random() * characters.length));
-                    if ((i + 1) % 4 === 0 && i < 15) {
-                        segment += '-';
-                    }
-                }
-                return segment;
-            }
-
-            const random1 = generateRandomSegment();
-            let random2, random3, random4, random5, finalResult;
-
-            do {
-                random2 = generateRandomSegment();
-            } while (random2 === random1);
-
-            do {
-                random3 = generateRandomSegment();
-            } while (random3 === random1 || random3 === random2);
-
-            do {
-                random4 = generateRandomSegment();
-            } while (random4 === random1 || random4 === random2 || random4 === random3);
-
-            do {
-                random5 = generateRandomSegment();
-            } while (random5 === random1 || random5 === random2 || random5 === random3 || random5 === random4);
-
-            do {
-                finalResult = generateRandomSegment();
-            } while (finalResult === random1 || finalResult === random2 || finalResult === random3 || finalResult === random4 || finalResult === random5);
-
-            // Set the generated text to the data attributes
-            randomBox.setAttribute('data-random1', random1);
-            randomBox.setAttribute('data-random2', random2);
-            randomBox.setAttribute('data-random3', random3);
-            randomBox.setAttribute('data-random4', random4);
-            randomBox.setAttribute('data-random5', random5);
-            randomBox.setAttribute('data-text', finalResult);
-
-            // Clear the text content
-            randomBox.textContent = '';
-
-            // Start the animation
-            randomBox.classList.add('animating');
-
-            // Update the text content after the animation completes
-            setTimeout(() => {
-                randomBox.textContent = finalResult;
-                randomBox.classList.remove('animating');
-            }, 3000); // Duration should match the animation duration
-        }
-    </script>
+    <h1>Simple Online Store</h1>
+    <div class="container">
+        <div class="item">
+            <a href="purchase-page1.html">
+                <img src="item1.jpg" alt="Item 1">
+                <div>Item 1</div>
+            </a>
+        </div>
+        <div class="item">
+            <a href="purchase-page2.html">
+                <img src="item2.jpg" alt="Item 2">
+                <div>Item 2</div>
+            </a>
+        </div>
+        <div class="item">
+            <a href="purchase-page3.html">
+                <img src="item3.jpg" alt="Item 3">
+                <div>Item 3</div>
+            </a>
+        </div>
+        <!-- Add more items as needed -->
+    </div>
 </body>
 </html>
